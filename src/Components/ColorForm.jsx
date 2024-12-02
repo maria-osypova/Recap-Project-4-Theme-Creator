@@ -1,36 +1,35 @@
 import { useState } from "react";
+import ColorInput from "./ColorInput";
+import { nanoid } from "nanoid";
 
-export default function ColorForm() {
+export default function ColorForm({ onSubmitColor }) {
   function handleSubmit(event) {
     event.preventDefault();
-    console.log("I add new color");
-    const newInputValue = event.target.value;
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+    const dataWithId = { id: nanoid(), ...data };
+    console.log(dataWithId);
+    onSubmitColor(dataWithId);
   }
   return (
     <form
       onSubmit={handleSubmit}
       style={{ display: "flex", flexDirection: "column", gap: "10px" }}
     >
-      <label htmlFor="colorRole">Role</label>
+      <label htmlFor="role">Role</label>
       <input
-        id="colorRole"
-        name="colorRole"
-        placeholder="primary main"
+        id="role"
+        name="role"
+        defaultValue="primary main"
         style={{ width: "20vh" }}
       />
-      <label htmlFor="colorHex">Hex</label>
+      <label htmlFor="hex">Hex</label>
       <div>
-        <ColorInput id={"colorHex"} value={newInputValue} />
+        <ColorInput id={"hex"} defaultValue={"#ffffff"} />
       </div>
-      <label htmlFor="colorContrastText">Contrast text</label>
+      <label htmlFor="contrastText">Contrast text</label>
       <div>
-        <input
-          id="colorContrastText"
-          name="colorContrastText"
-          placeholder="#ffffff"
-          style={{ width: "20vh" }}
-        />
-        <input type="color" id="colorPicker" name="colorPicker" />
+        <ColorInput id={"contrastText"} defaultValue={"#000000"} />
       </div>
       <button className="button" style={{ width: "20vh" }}>
         ADD COLOR

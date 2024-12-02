@@ -5,14 +5,17 @@ import ColorForm from "./Components/ColorForm";
 import { useState } from "react";
 
 function App() {
-  const [hexValue, setHexValue] = useState("#000000");
-  const [colorContrastText, setColorContrastText] = useState("#ffffff");
+  const [colors, setColors] = useState(initialColors);
+
+  function addColor(newColor) {
+    setColors((prevColors) => [newColor, ...prevColors]);
+  }
   return (
     <>
       <h1>Theme Creator</h1>
-      <ColorForm></ColorForm>
+      <ColorForm onSubmitColor={addColor} />
 
-      {initialColors.map((color) => {
+      {colors.map((color) => {
         return <Color key={color.id} color={color} />;
       })}
     </>
