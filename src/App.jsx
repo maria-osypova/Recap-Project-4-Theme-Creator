@@ -14,6 +14,14 @@ function App() {
   function addColor(newColor) {
     setColors((prevColors) => [newColor, ...prevColors]);
   }
+  function updateColor(updatedColor) {
+    setColors((prevColors) =>
+      prevColors.map((color) =>
+        color.id === updatedColor.id ? updatedColor : color
+      )
+    );
+  }
+
   return (
     <>
       <h1>Theme Creator</h1>
@@ -26,6 +34,7 @@ function App() {
             key={color.id}
             color={color}
             onDelete={() => deleteColor(color.id)}
+            onUpdate={updateColor}
           />
         ))
       )}
