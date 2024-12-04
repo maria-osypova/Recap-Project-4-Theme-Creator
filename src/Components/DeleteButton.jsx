@@ -36,4 +36,4 @@ export default function DeleteButton({ onDelete }) {
 // + cancelDeleteColor function -> return DeleteButton
 // + confirmDeleteColor function -> delete color object from array
 // + add DeleteButton to Color component
-// if Colors is epmty -> "No colors.. start by adding one!"
+// + if Colors is epmty -> "No colors.. start by adding one!"
