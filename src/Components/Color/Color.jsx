@@ -2,6 +2,7 @@ import { useState } from "react";
 import DeleteButton from "../DeleteButton";
 import "./Color.css";
 import ColorForm from "../ColorForm";
+import CopyToClipboard from "../CopyToClipboard";
 
 export default function Color({ color, onDelete, onUpdate }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -34,7 +35,10 @@ export default function Color({ color, onDelete, onUpdate }) {
         </>
       ) : (
         <>
-          <h3 className="color-card-headline">{color.hex}</h3>
+          <div>
+            <h3 className="color-card-headline">{color.hex}</h3>
+            <CopyToClipboard hex={color.hex} />
+          </div>
           <h4>{color.role}</h4>
           <p>contrast: {color.contrastText}</p>
           <DeleteButton onDelete={onDelete} />
