@@ -6,6 +6,7 @@ import { useState } from "react";
 
 function App() {
   const [colors, setColors] = useState(initialColors);
+  console.log(colors);
 
   function deleteColor(id) {
     setColors((prevColors) => prevColors.filter((color) => color.id !== id));
