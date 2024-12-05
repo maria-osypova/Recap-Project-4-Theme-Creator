@@ -16,3 +16,24 @@
   background: black;
   color: white;
 }
+
+.contrast-score.nope {
+  background-color: #ff6f61;
+  display: inline-block;
+  padding: 1px 5px;
+  border-radius: 5px;
+}
+
+.contrast-score.kinda {
+  background-color: #ffb347;
+  display: inline-block;
+  padding: 1px 5px;
+  border-radius: 5px;
+}
+
+.contrast-score.yup {
+  background-color: #78c091;
+  display: inline-block;
+  padding: 1px 5px;
+  border-radius: 5px;
+}

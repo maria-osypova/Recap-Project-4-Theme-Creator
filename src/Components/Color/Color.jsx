@@ -41,10 +41,19 @@ export default function Color({ color, onDelete, onUpdate }) {
           </div>
           <h4>{color.role}</h4>
           <p>contrast: {color.contrastText}</p>
-          <DeleteButton onDelete={onDelete} />
-          <button onClick={handleEditToggle}>EDIT</button>
+          <div
+            className={`contrast-score ${color.contrastCheck?.toLowerCase()}`}
+          >
+            Overall Contrast Score: {color.contrastCheck}
+          </div>
+          <div>
+            <DeleteButton onDelete={onDelete} />
+            <button onClick={handleEditToggle}>EDIT</button>
+          </div>
         </>
       )}
     </div>
   );
 }
+
+// contrast api response should change color regarding the response

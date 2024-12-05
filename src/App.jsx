@@ -2,26 +2,56 @@ import { initialColors } from "./lib/colors";
 import Color from "./Components/Color/Color";
 import "./App.css";
 import ColorForm from "./Components/ColorForm";
-//import { useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
+import fetchContrastAPI from "./Components/fetchContrastAPI";
+import { useEffect } from "react";
 
 function App() {
   const [colors, setColors] = useLocalStorageState("colors", {
     defaultValue: initialColors,
   });
-  console.log(colors);
+
+  useEffect(() => {
+    async function checkInitialColors() {
+      const initialColorsWithContrast = await Promise.all(
+        initialColors.map(async (color) => {
+          const contrastCheck = await fetchContrastAPI(
+            color.hex,
+            color.contrastText
+          );
+          return { ...color, contrastCheck };
+        })
+      );
+      setColors(initialColorsWithContrast);
+    }
+    checkInitialColors();
+  }, []);
 
   function deleteColor(id) {
     setColors((prevColors) => prevColors.filter((color) => color.id !== id));
   }
 
-  function addColor(newColor) {
-    setColors((prevColors) => [newColor, ...prevColors]);
+  async function addColor(newColor) {
+    const apiResponse = await fetchContrastAPI(
+      newColor.hex,
+      newColor.contrastText
+    );
+    const newColorWithContrast = { ...newColor, contrastCheck: apiResponse };
+    setColors((prevColors) => [newColorWithContrast, ...prevColors]);
   }
-  function updateColor(updatedColor) {
+
+  async function updateColor(updatedColor) {
+    const apiResponse = await fetchContrastAPI(
+      updatedColor.hex,
+      updatedColor.contrastText
+    );
+    const newColorWithContrast = {
+      ...updatedColor,
+      contrastCheck: apiResponse,
+    };
     setColors((prevColors) =>
       prevColors.map((color) =>
-        color.id === updatedColor.id ? updatedColor : color
+        color.id === updatedColor.id ? newColorWithContrast : color
       )
     );
   }
